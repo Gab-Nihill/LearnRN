@@ -5,8 +5,8 @@
  */
 import React, { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
-import HomePage from './HomeComponent.js';
-import SecondPage from './SecondPage.js';
+import HomePage from './HomeComponent';
+import SecondPage from './SecondPage';
 
 const NavigationLearnt = StackNavigator({
    Home : { screen: HomePage },

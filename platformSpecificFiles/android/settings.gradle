@@ -1,0 +1,3 @@
+rootProject.name = 'platformSpecificFiles'
+
+include ':app'
