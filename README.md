@@ -10,6 +10,6 @@ I will assume that you got everything needed to build Mobile project (if you don
 
 2 - get inside any project you want to build
 
-3 - run in command line ```npm install```
+3 - run  ```npm install```
 
-4 - for iOS build, use ```react-native run-ios```  // for Android build, use ```react-native run-android```
+4 - for iOS build, run ```react-native run-ios```  // for Android build, run ```react-native run-android```
