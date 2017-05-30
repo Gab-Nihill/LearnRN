@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -6,39 +6,92 @@ import {
   View,
   Button,
 } from 'react-native';
+import { TabViewAnimated, TabBar } from 'react-native-tab-view';
+import Common1 from './common1.js'
+import Common2 from './common2.js'
 
-export default class SecondPage extends Component {
-  render() {
-    const { navigate } = this.props.navigation;
+export default class SecondPage extends PureComponent<void, *, State> {
+
+  static title = 'Scrollable top bar';
+  static appbarElevation = 0;
+
+  state: State = {
+    index: 1,
+    routes: [
+      { key: '1', title: 'First' },
+      { key: '2', title: 'Second' },
+    ],
+  };
+
+  _handleChangeTab = index => {
+    this.setState({
+      index,
+    });
+  };
+
+  _renderHeader = props => {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Cette vue est spécifique à la plateforme Android
-        </Text>
-        <Text style={styles.instructions}>
-          Grâce aux sub-extension .ios & .android React Native permet de différencier un composant selon la plateforme (ex : index.ios.js) {"\n"}
-          Il est aussi possible de modifier certains morceaux d'un composant via le module React Native Platform
-        </Text>
-      </View>
+      <TabBar
+        {...props}
+        scrollEnabled
+        indicatorStyle={styles.indicator}
+        style={styles.tabbar}
+        tabStyle={styles.tab}
+        labelStyle={styles.label}
+      />
+    );
+  };
+
+  _renderScene = ({ route }) => {
+    switch (route.key) {
+      case '1':
+        return (
+          <Common1
+            state={this.state}
+            style={{ backgroundColor: '#ff4081' }}
+          />
+        );
+      case '2':
+        return (
+          <Common2
+            state={this.state}
+            style={{ backgroundColor: '#673ab7' }}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
+  render() {
+    return (
+      <TabViewAnimated
+        style={[styles.container, this.props.style]}
+        navigationState={this.state}
+        renderScene={this._renderScene}
+        renderHeader={this._renderHeader}
+        onRequestChangeTab={this._handleChangeTab}
+      />
     );
   }
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+  tabbar: {
+    backgroundColor: '#222',
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  tab: {
+    width: 120,
+  },
+  indicator: {
+    backgroundColor: '#ffeb3b',
+  },
+  label: {
+    color: '#fff',
+    fontWeight: '400',
   },
 });
